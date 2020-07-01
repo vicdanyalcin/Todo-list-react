@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./App.css";
-const Todo = ({ todo }) => <div className="todo">{todo.text}</div>;
 
 function TodoForm({ addTodo }) {
   const [value, setValue] = useState("");
@@ -10,6 +9,7 @@ function TodoForm({ addTodo }) {
     addTodo(value);
     setValue("");
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -18,28 +18,65 @@ function TodoForm({ addTodo }) {
         value={value}
         onChange={(e) => setValue(e.target.value)}
       ></input>
+      <button className="addtodos-btn" onSubmit={addTodo}>
+        Add Todo
+      </button>
     </form>
+  );
+}
+function Todo({ todo, index, completeTodo, removeTodo }) {
+  return (
+    <div
+      className="todo"
+      style={{ textDecoration: todo.isCompleted ? "line-through" : "" }}
+    >
+      {todo.text}
+
+      <div>
+        <button className="complete-btn" onClick={() => completeTodo(index)}>
+          Complete
+        </button>
+        <button onClick={() => removeTodo(index)}>x</button>
+      </div>
+    </div>
   );
 }
 
 function App() {
   const [todos, setTodos] = useState([
-    { text: "Meet friends for breakfast" },
-    { text: "Coding" },
-    { text: "Doing workout" },
+    { text: "Meet friends for breakfast", isCompleted: false },
+    { text: "Coding", isCompleted: false },
+    { text: "Doing workout", isCompleted: false },
   ]);
 
   const addTodo = (text) => {
     const newTodos = [...todos, { text }];
     setTodos(newTodos);
   };
-
+  const completeTodo = (index) => {
+    const newTodos = [...todos];
+    newTodos[index].isCompleted = true;
+    setTodos(newTodos);
+  };
+  const removeTodo = (index) => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
+  };
   return (
     <div className="app">
       <div className="todo-list">
-        {todos.map((todo, index) => (
-          <Todo key={index} index={index} todo={todo} />
-        ))}
+        <h1>
+          {todos.map((todo, index) => (
+            <Todo
+              key={index}
+              index={index}
+              todo={todo}
+              completeTodo={completeTodo}
+              removeTodo={removeTodo}
+            />
+          ))}
+        </h1>
         <TodoForm addTodo={addTodo} />
       </div>
     </div>
