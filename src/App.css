@@ -45,7 +45,7 @@
   background-color: #790e43;
   color: #ccc;
   border: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Fira Sans", sans-serif;
   font-size: 14px;
   border-radius: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
@@ -55,7 +55,7 @@
 
 .complete-btn {
   font-size: 16px;
-  color: purple;
+  color: #535203;
   border: none;
   font-family: "Montserrat", sans-serif;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
